@@ -18,14 +18,15 @@
     ],
     "rules": {
       "no-console": 1,
-      "no-unused-vars": "warn"
+      "no-unused-vars": "warn",
+      "prettier/prettier": ["error",{
+        "endOfLine": "auto"}
+      ]
     }
   },
   "prettier": {
     "printWidth": 90,
-    "bracketSpacing": true,
-    "trailingComma": "es5",
-    "semi": false,
+    "trailingComma": "all",
     "singleQuote": true
   },
   "husky": {

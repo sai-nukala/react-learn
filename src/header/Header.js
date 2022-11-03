@@ -1,9 +1,7 @@
-import React from 'react'
-import './Header.css'
+import React from 'react';
+import './Header.css';
 
 function Header() {
-  console.log('Header');
-  var unused;
   return (
     <header className="header">
       <div>
@@ -26,7 +24,7 @@ function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
