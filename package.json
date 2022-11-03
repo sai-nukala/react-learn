@@ -7,13 +7,19 @@
     "start": "webpack serve --config ./config/webpack.dev.config.js",
     "build": "webpack --config ./config/webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettify": "prettier src/**/*.js --write"
+    "prettify": "prettier src/**/*.js --write",
+    "prepare": "husky install",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "plugin:prettier/recommended"
-    ]
+    ],
+    "rules": {
+      "no-console": 1,
+      "no-unused-vars": "warn"
+    }
   },
   "prettier": {
     "printWidth": 90,
