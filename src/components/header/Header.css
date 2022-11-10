@@ -1,0 +1,40 @@
+.header {
+  position: relative;
+  height: 350px;
+  background: url(../../assets/images/Bitmap.svg) no-repeat #000;
+  mix-blend-mode: normal;
+  width: 100%;
+}
+.headertitle {
+  position: absolute;
+  left: 130px;
+  top: 105px;
+  color: white;
+}
+
+.searchInput {
+  position: absolute;
+  background: rgba(50, 50, 50, 0.8);
+  border-radius: 4px;
+  width: 713px;
+  height: 45px;
+}
+.searchButton {
+  position: absolute;
+  width: 233px;
+  height: 50px;
+  left: 743px;
+  background: #f65261;
+  font-size: 16px;
+  color: #ffffff;
+}
+.addButton {
+  background: rgba(96, 96, 96, 0.68);
+  border: none;
+  padding: 10px 25px;
+  color: #f65261;
+}
+.alignAddButton {
+  text-align: right;
+  padding: 25px 40px;
+}
