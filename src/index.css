@@ -1,3 +1,4 @@
+@import 'react-datepicker/dist/react-datepicker';
 #root {
   width: 1200px;
   background-color: #232323;
@@ -16,4 +17,8 @@
   justify-content: center;
   height: 70px;
   align-items: center;
+}
+
+p {
+  margin: 0px;
 }

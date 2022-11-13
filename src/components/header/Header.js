@@ -1,7 +1,8 @@
 import React from 'react';
 import './Header.css';
-
+import useAddEditMovieModal from '../modals/AddEditModal';
 function Header() {
+  const openEditMovieModal = useAddEditMovieModal('Add');
   return (
     <header className="header">
       <div>
@@ -9,7 +10,14 @@ function Header() {
           <b>netflix</b>roulette
         </label>
         <div className="alignAddButton">
-          <button className="addButton">+ ADD MOVIE</button>
+          <button
+            className="addButton"
+            onClick={() => {
+              openEditMovieModal();
+            }}
+          >
+            + ADD MOVIE
+          </button>
         </div>
       </div>
       <div className="headertitle">
