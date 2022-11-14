@@ -84,6 +84,7 @@ const MovieList = () => {
           ))}
         </ul>
       </div>
+      {/* <UseAddEditMovieModal /> */}
     </>
   );
 };

@@ -4,17 +4,18 @@ import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import MovieList from './components/movie-list/MovieList';
 import ErrorBoundary from './components/error-component/ErrorBoundary';
-import './index.css'
+import './index.css';
+import { ModalProvider } from 'react-modal-hook';
 
 ReactDOM.render(
   <React.StrictMode>
-  
-  <Header/>
-  <ErrorBoundary>
-    <MovieList/>
-    </ErrorBoundary>
-    <Footer/>
-  
+    <ModalProvider>
+      <Header />
+      <ErrorBoundary>
+        <MovieList />
+      </ErrorBoundary>
+      <Footer />
+    </ModalProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
