@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import imageToRender from '../../assets/images/movie1.png';
+import React, { useState, useContext, useRef } from 'react';
 import ellipse from '../../assets/images/ellipsis.svg';
 import PropTypes from 'prop-types';
 import './movie-card.scss';
@@ -7,6 +6,7 @@ import styled from 'styled-components';
 import useAddEditMovieModal from '../modals/AddEditModal';
 import useDeleteMovieModal from '../modals/DeleteModal';
 import { MovieContext, MovieDispatchContext } from '../../shared/MovieProvider';
+import { useOutsideClickHandler } from '../../shared/customCloseHook';
 
 const MoreOptions = styled.div`
   background-color: 'violet';
@@ -54,8 +54,10 @@ const MovieCard = (props) => {
   const openEditMovieModal = useAddEditMovieModal('Edit');
   const openDeleteMovieModal = useDeleteMovieModal();
 
-  const movieDetails = useContext(MovieContext);
   const setMovieDetails = useContext(MovieDispatchContext);
+
+  const wrapperRef = useRef(null);
+  useOutsideClickHandler(wrapperRef, () => setOpenContextMenu(false));
 
   return (
     <div
@@ -78,7 +80,7 @@ const MovieCard = (props) => {
       )}
 
       {isContextMenuOpen && (
-        <ContextMenu>
+        <ContextMenu ref={wrapperRef}>
           <MenuButton>
             <p onClick={() => setOpenContextMenu(false)}>X</p>
           </MenuButton>
