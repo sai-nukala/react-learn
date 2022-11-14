@@ -117,13 +117,13 @@ const UseAddEditMovieModal = (flowType) => {
   });
 
   CustomDatePickerInput.displayName = 'CustomDatePickerInput';
-  const genres = [
-    { name: 'documentary' },
-    { name: 'comedy' },
-    { name: 'horror' },
-    { name: 'crime' },
-  ];
   const movieGenres = useMemo(() => {
+    const genres = [
+      { name: 'documentary' },
+      { name: 'comedy' },
+      { name: 'horror' },
+      { name: 'crime' },
+    ];
     return genres.map((item) => {
       return { value: item.name, label: item.name };
     });

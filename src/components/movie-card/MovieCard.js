@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import imageToRender from '../../assets/images/movie1.png';
 import ellipse from '../../assets/images/ellipsis.svg';
 import PropTypes from 'prop-types';
@@ -6,6 +6,7 @@ import './movie-card.scss';
 import styled from 'styled-components';
 import useAddEditMovieModal from '../modals/AddEditModal';
 import useDeleteMovieModal from '../modals/DeleteModal';
+import { MovieContext, MovieDispatchContext } from '../../shared/MovieProvider';
 
 const MoreOptions = styled.div`
   background-color: 'violet';
@@ -53,11 +54,17 @@ const MovieCard = (props) => {
   const openEditMovieModal = useAddEditMovieModal('Edit');
   const openDeleteMovieModal = useDeleteMovieModal();
 
+  const movieDetails = useContext(MovieContext);
+  const setMovieDetails = useContext(MovieDispatchContext);
+
   return (
     <div
       className="card"
       onMouseEnter={() => setMenuButtonVisible(true)}
       onMouseLeave={() => setMenuButtonVisible(false)}
+      onClick={() => {
+        setMovieDetails(props);
+      }}
     >
       {isMenuButtonVisible && !isContextMenuOpen && (
         <MoreOptions
@@ -98,7 +105,7 @@ const MovieCard = (props) => {
 
       <img
         className="movie"
-        src={imageToRender}
+        src={props.value.src}
         key={props.value.id}
         alt={props.value.title}
       />
