@@ -1,85 +1,49 @@
-import React from 'react';
-import { createUseStyles } from 'react-jss';
+import React, { useContext, useState } from 'react';
 import MovieCard from '../movie-card/MovieCard';
+import Movies from '../../shared/Movies-data.json';
+import { listStyles } from './MovieListStyles';
+import { MovieContext } from '../../shared/MovieProvider';
+import { MovieEditContext } from '../../shared/MovieEditProvider';
 
-const cards = [
-  {
-    id: 1,
-    title: 'Pulp Fiction',
-    genre: 'Action & Adventure',
-    year: 2004,
-  },
-  {
-    id: 2,
-    title: 'Avengers',
-    genre: 'Action & Adventure',
-    year: 2017,
-  },
-  {
-    id: 3,
-    title: 'Bill: Vol 2',
-    genre: 'Oscar winning Movie',
-    year: 1994,
-  },
-  {
-    id: 4,
-    title: 'EndGame',
-    genre: 'Oscar winning Movie',
-    year: 2020,
-  },
-  {
-    id: 5,
-    title: 'Ishq',
-    genre: 'Romance',
-    year: 2010,
-  },
-  {
-    id: 6,
-    title: 'VR',
-    genre: 'Thriller',
-    year: 2022,
-  },
-];
-
-const listStyles = createUseStyles({
-  '.results': {
-    margin: '27px 0',
-    fontSize: '20px',
-    color: 'rgba(255, 255, 255, 0.7)',
-  },
-  '.span': {
-    fontWeight: '600',
-    marginLeft: '45px',
-  },
-  '.list': {
-    display: 'flex',
-    flexWrap: 'wrap',
-    columnGap: '15px',
-    rowGap: '50px',
-    justifyContent: 'space-evenly',
-    padding: 0,
-    listStyle: 'none',
-  },
-  '.li': {
-    width: '335px',
-  },
-  listcontainer: {
-    width: '1200px',
-    padding: '0 0 50px 0',
-  },
-});
 const MovieList = () => {
   const styles = listStyles();
+  let _movieList = Movies;
+  let edit = useContext(MovieEditContext);
+  const [, updateState] = React.useState();
+  const renderCOmp = React.useCallback(() => updateState({}), []);
+  const deleteMovie = (movie) => {
+    const objWithIdIndex = _movieList.findIndex((obj) => obj.id === edit?.id);
+    if (objWithIdIndex > -1) {
+      _movieList.splice(objWithIdIndex, 1);
+    }
+    renderCOmp();
+  };
+
+  const updateMovie = () => {
+    const index = _movieList.findIndex((obj) => obj.id === edit?.id);
+
+    if (index > -1) {
+      Movies.splice(index, 1, edit);
+      console.log(Movies);
+      _movieList = [...Movies];
+    }
+    renderCOmp();
+  };
+
   return (
     <>
       <div className={styles['.results']}>
-        <span className={styles['.span']}>{cards.length}</span> movies found
+        <span className={styles['.span']}>{Movies.length}</span> movies found
       </div>
       <div className={styles.listcontainer}>
         <ul className={styles['.list']}>
-          {cards.map((card) => (
+          {_movieList.map((card) => (
             <li className={styles['.li']} key={card.id}>
-              <MovieCard value={card} />
+              <MovieCard
+                movie={card}
+                deleteMovie={deleteMovie}
+                updateMovie={updateMovie}
+              />
             </li>
           ))}
         </ul>
