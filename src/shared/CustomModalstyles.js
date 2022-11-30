@@ -48,3 +48,13 @@ export const ModalActions = styled.div`
   gap: 13px;
   justify-content: flex-end;
 `;
+export const deleteModalStyles = {
+  content: {
+    maxWidth: '670px',
+    maxHeight: '350px',
+    margin: '0 auto',
+  },
+};
+export const ModalContent = styled.div`
+  margin: 20px 0;
+`;

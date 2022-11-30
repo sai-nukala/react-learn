@@ -1,13 +1,12 @@
 import React, { createContext, useState } from 'react';
-import Movie_Default from './Movie';
 
 // MovieContext: to query the context state
 // MovieDispatchContext: to mutate the context state
-const MovieContext = createContext(undefined);
+const MovieContext = createContext({});
 const MovieDispatchContext = createContext(undefined);
 
 function MovieProvider({ children }) {
-  const [movieDetails, setmovieDetails] = useState(null);
+  const [movieDetails, setmovieDetails] = useState();
 
   return (
     <MovieContext.Provider value={movieDetails}>
@@ -18,4 +17,10 @@ function MovieProvider({ children }) {
   );
 }
 
-export { MovieProvider, MovieContext, MovieDispatchContext };
+const ModalState = {
+  EDIT: 'Edit',
+  DELETE: 'Delete',
+  ADD: 'Add',
+};
+
+export { MovieProvider, MovieContext, MovieDispatchContext, ModalState };
