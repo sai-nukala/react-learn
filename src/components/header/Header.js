@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import './Header.css';
 import AddEditModalContent from '../modals/AddEditModalContent';
 import {
@@ -15,6 +15,7 @@ import { MovieEditContext } from '../../shared/MovieEditProvider';
 function Header(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContext, setmodalContext] = useState(ModalState.ADD);
+  const inputRef = useRef(null);
 
   /**set modal state open/ close */
   const setModalState = (state) => {
@@ -23,7 +24,6 @@ function Header(props) {
   let add = useContext(MovieEditContext);
   const movieDetails = useContext(MovieContext);
   const updateMovie = () => {
-    console.log('add', add);
     Movies.push(add);
   };
 
@@ -54,8 +54,16 @@ function Header(props) {
                   className="searchInput"
                   type="text"
                   placeholder="What do you want to watch?"
+                  ref={inputRef}
                 ></input>
-                <button className="searchButton">SEARCH</button>
+                <button
+                  className="searchButton"
+                  onClick={() => {
+                    props.searchMovie(inputRef.current.value);
+                  }}
+                >
+                  SEARCH
+                </button>
               </div>
             </div>
           </>

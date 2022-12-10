@@ -25,6 +25,10 @@ const listStyles = createUseStyles({
     width: '1200px',
     padding: '0 0 50px 0',
   },
+  paginations: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 });
 
 export { listStyles };

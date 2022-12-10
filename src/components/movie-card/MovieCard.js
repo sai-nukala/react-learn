@@ -54,7 +54,7 @@ const MovieCard = (props) => {
   };
   return (
     <div
-      className="card"
+      className="moviecard"
       onMouseOver={() => setMenuButtonVisible(true)}
       onMouseLeave={() => setMenuButtonVisible(false)}
       onClick={() => {
@@ -139,18 +139,19 @@ const MovieCard = (props) => {
           <DeleteModalContent
             deleteMovie={() => {
               props.deleteMovie();
+              setModalIsOpen(false);
             }}
           ></DeleteModalContent>
         )}
       </ReactModal>
 
       {/* Card Content */}
-      <img className="movie" src={src} key={id} alt={title} />
+      <img className="movie" src={src} key={id} alt={title} loading="lazy" />
       <div className="title-wrap">
         <span className="title">{title}</span>
         <span className="year">{year}</span>
       </div>
-      <span className="genre">{genre}</span>
+      <span className="genre">{genre.join(',  ')}</span>
     </div>
   );
 };
@@ -164,8 +165,8 @@ MovieCard.propTypes = {
   movie: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    genre: PropTypes.string,
-    year: PropTypes.number,
+    genre: PropTypes.array,
+    year: PropTypes.string,
     description: PropTypes.string,
     runTime: PropTypes.number,
     src: PropTypes.string,
