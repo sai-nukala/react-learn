@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MovieCard from '../movie-card/MovieCard';
 import { listStyles } from './MovieListStyles';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMovies, deleteMovieById } from '../../services/dataplatform';
+import { getMovies } from '../../services/dataplatform';
 import { store } from '../../redux/store';
 import CollapsibleExample from '../navbar/headernav';
 import {
@@ -10,7 +10,6 @@ import {
   updateCurrentGenre,
   updateSearchInput,
 } from '../../redux/movieSlice';
-import { MovieContext } from '../../shared/MovieProvider';
 import ReactPaginate from 'react-paginate';
 import Header from '../header/Header';
 
@@ -24,6 +23,8 @@ const MovieList = () => {
     sortBy,
     currentGenre,
     search,
+    recalculate,
+    editError,
   } = useSelector((state) => state.movies);
 
   const dispatch = useDispatch();
@@ -31,18 +32,7 @@ const MovieList = () => {
   // *** updates the data ** //
   useEffect(() => {
     dispatch(getMovies({ limit, sortBy, currentGenre, search }));
-  }, [dispatch, limit, sortBy, currentGenre, search]);
-
-  let edit = useContext(MovieContext);
-
-  const deleteMovie = () => {
-    dispatch(getMovies({ limit, sortBy, currentGenre }));
-  };
-
-  //todo in task7
-  const updateMovie = (values) => {
-    dispatch(getMovies({ limit, sortBy, currentGenre }));
-  };
+  }, [dispatch, limit, sortBy, currentGenre, search, recalculate]);
 
   /** filterBy Genre , search & sortBy */
   const sortByValue = (sortingKey) => {
@@ -72,7 +62,7 @@ const MovieList = () => {
 
   return (
     <>
-      <Header searchMovie={searchMovie} />
+      <Header searchMovie={searchMovie} error={editError} />
       <CollapsibleExample
         sortByValue={sortByValue}
         fetchByGenre={fetchByGenre}
@@ -84,11 +74,7 @@ const MovieList = () => {
         <ul className={styles['.list']}>
           {currentItems.map((card) => (
             <li className={styles['.li']} key={card.id}>
-              <MovieCard
-                movie={card}
-                deleteMovie={deleteMovie}
-                updateMovie={updateMovie}
-              />
+              <MovieCard movie={card} error={editError} />
             </li>
           ))}
         </ul>

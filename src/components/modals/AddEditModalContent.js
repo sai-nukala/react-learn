@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useContext, useEffect } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import Select from 'react-select';
 import ReactDatePicker from 'react-date-picker';
 import {
@@ -20,7 +20,8 @@ import Genres from '../../shared/Genres-data.json';
 import { MovieContext, MovieDispatchContext } from '../../shared/MovieProvider';
 import { useFormik } from 'formik';
 import { updateMovie, createMovie } from '../../services/dataplatform';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { resetError } from '../../redux/movieSlice';
 
 const fetchGenresOfMovie = (genre) => {
   let options = [];
@@ -35,7 +36,6 @@ const fetchGenresOfMovie = (genre) => {
 
 const AddEditModalContent = (props) => {
   const dispatch = useDispatch();
-  let { editError } = useSelector((state) => state.movies);
   const setMovieDetails = useContext(MovieDispatchContext);
   let _tempmovieDetails = useContext(MovieContext);
   const [releaseDate, setReleaseDate] = useState({
@@ -77,18 +77,17 @@ const AddEditModalContent = (props) => {
     });
   }, []);
 
-  useEffect((editError) => {}, [dispatch, editError]);
   // * formik * //
   const formik = useFormik({
     initialValues: _tempmovieDetails,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (_tempmovieDetails.id !== '') {
-        dispatch(updateMovie(values));
+        await dispatch(updateMovie(values));
       } else {
-        dispatch(createMovie(values));
+        await dispatch(createMovie(values));
       }
-      if (editError.length === 0) {
-        // props.updateMovie();
+      if (this.props.error.length == 0) {
+        props.updateMovie();
         setMovieDetails(null);
       }
     },
@@ -97,7 +96,7 @@ const AddEditModalContent = (props) => {
   return (
     <>
       <div id="error-block">
-        {editError?.map((error) => (
+        {props.error?.map((error) => (
           <li style={{ color: 'darkslategrey' }} key={error}>
             {error}
           </li>
@@ -180,8 +179,10 @@ const AddEditModalContent = (props) => {
           </BottomContainer>
           <ModalActions>
             <PrimaryButtonOutlined
-              cancelUpdate={() => {
+              type="button"
+              onClick={() => {
                 props.cancelUpdate();
+                dispatch(resetError());
               }}
             >
               Reset

@@ -5,10 +5,13 @@ import { MovieContext, ModalState } from '../../shared/MovieProvider';
 import HeaderMovieContent from '../header/HeaderMovieContent';
 import ReactModal from 'react-modal';
 import { modalStyles } from '../../shared/CustomModalstyles';
+import { useDispatch } from 'react-redux';
+import { resetError } from '../../redux/movieSlice';
 
 function Header(props) {
+  const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalContext, setmodalContext] = useState(ModalState.ADD);
+  const [modalContext] = useState(ModalState.ADD);
   const inputRef = useRef(null);
 
   /**set modal state open/ close */
@@ -82,6 +85,7 @@ function Header(props) {
           <button
             style={{ margin: '20px' }}
             onClick={() => {
+              dispatch(resetError());
               setModalState(false);
             }}
           >
@@ -91,12 +95,12 @@ function Header(props) {
         {modalContext === ModalState.ADD && (
           <AddEditModalContent
             updateMovie={() => {
-              // updateMovie();
               setModalIsOpen(false);
             }}
             cancelUpdate={() => {
               setModalIsOpen(false);
             }}
+            error={props.error}
           ></AddEditModalContent>
         )}
       </ReactModal>

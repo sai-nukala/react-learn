@@ -10,8 +10,11 @@ import ReactModal from 'react-modal';
 import { MenuRow, MenuButton, ContextMenu, MoreOptions } from './MovieCardStyles';
 import { modalStyles, deleteModalStyles } from '../../shared/CustomModalstyles';
 import Movies from '../../shared/Movies-data.json';
+import { useDispatch } from 'react-redux';
+import { resetError } from '../../redux/movieSlice';
 
 const MovieCard = (props) => {
+  const dispatch = useDispatch();
   /**Destructuring the movie details of */
   const { id, title, genre, year, overview, runTime, rating, src } = props?.movie;
   const [isContextMenuOpen, setOpenContextMenu] = useState(false);
@@ -49,9 +52,6 @@ const MovieCard = (props) => {
   const wrapperRef = useRef(null);
   useOutsideClickHandler(wrapperRef, () => setOpenContextMenu(false));
 
-  const cancelUpdate = () => {
-    setModalState(false);
-  };
   return (
     <div
       className="moviecard"
@@ -82,11 +82,19 @@ const MovieCard = (props) => {
       {isContextMenuOpen && (
         <ContextMenu ref={wrapperRef}>
           <MenuButton>
-            <p onClick={() => setOpenContextMenu(false)}>X</p>
+            <p
+              onClick={() => {
+                setOpenContextMenu(false);
+                dispatch(resetError());
+              }}
+            >
+              X
+            </p>
           </MenuButton>
           <MenuRow
             role="button"
             onClick={() => {
+              dispatch(resetError());
               openModal(ModalState.EDIT);
             }}
           >
@@ -127,18 +135,17 @@ const MovieCard = (props) => {
         {modalContext === ModalState.EDIT && (
           <AddEditModalContent
             updateMovie={() => {
-              props.updateMovie();
               setModalIsOpen(false);
             }}
             cancelUpdate={() => {
-              cancelUpdate();
+              setModalIsOpen(false);
             }}
+            error={props.error}
           ></AddEditModalContent>
         )}
         {modalContext === ModalState.DELETE && (
           <DeleteModalContent
             deleteMovie={() => {
-              props.deleteMovie();
               setModalIsOpen(false);
             }}
           ></DeleteModalContent>

@@ -13,6 +13,7 @@ const initialState = Object.freeze({
   current: {},
   search: '',
   currentGenre: 'all',
+  recalculate: false,
 });
 
 export const moviesSlice = createSlice({
@@ -38,6 +39,10 @@ export const moviesSlice = createSlice({
     fetchEditError: (state, { payload }) => {
       state.pending = false;
       state.editError = payload.editError;
+      state.recalculate = false;
+    },
+    resetError: (state) => {
+      state.editError = [];
     },
     fetchGetSuccess: (state, { payload }) => {
       state.pending = false;
@@ -57,15 +62,18 @@ export const moviesSlice = createSlice({
     fetchCreateSuccess: (state, { payload }) => {
       state.value = [...state.value, payload];
       state.editError = [];
+      state.recalculate = true;
     },
     fetchUpdateSuccess: (state, { payload }) => {
       state.pending = false;
       state.editError = [];
       const cardsWithoutEdited = state.value.filter((card) => card.id !== payload.id);
       state.value = [...cardsWithoutEdited, payload];
+      state.recalculate = true;
     },
     fetchDeleteSuccess: (state) => {
       state.pending = false;
+      state.recalculate = true;
     },
     updateSortBy: (state, { payload }) => {
       state.sortBy = payload;
@@ -92,6 +100,7 @@ export const {
   updateSortBy,
   updateCurrentGenre,
   updateSearchInput,
+  resetError,
 } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
