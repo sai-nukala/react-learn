@@ -34,7 +34,7 @@ const HeaderMovieContent = () => {
             {movieDetails?.runTime}
             <TextStyle>min</TextStyle>
           </FilmDuration>
-          <FilmDescription>{movieDetails?.description}</FilmDescription>
+          <FilmDescription>{movieDetails?.overview}</FilmDescription>
         </div>
       </FilmContent>
       <Search>

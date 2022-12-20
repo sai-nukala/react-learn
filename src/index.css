@@ -1,4 +1,3 @@
-@import 'react-datepicker/dist/react-datepicker';
 #root {
   width: 1200px;
   background-color: #232323;
@@ -22,4 +21,12 @@
 
 p {
   margin: 0px;
+}
+
+.react-date-picker 
+{
+  background: darkgray;
+}
+.react-date-picker__inputGroup__input{
+  color: white;
 }

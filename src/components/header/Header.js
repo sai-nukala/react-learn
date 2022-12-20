@@ -1,16 +1,10 @@
 import React, { useState, useContext, useRef } from 'react';
 import './Header.css';
 import AddEditModalContent from '../modals/AddEditModalContent';
-import {
-  MovieContext,
-  MovieDispatchContext,
-  ModalState,
-} from '../../shared/MovieProvider';
+import { MovieContext, ModalState } from '../../shared/MovieProvider';
 import HeaderMovieContent from '../header/HeaderMovieContent';
 import ReactModal from 'react-modal';
 import { modalStyles } from '../../shared/CustomModalstyles';
-import Movies from '../../shared/Movies-data.json';
-import { MovieEditContext } from '../../shared/MovieEditProvider';
 
 function Header(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -21,11 +15,7 @@ function Header(props) {
   const setModalState = (state) => {
     setModalIsOpen(state);
   };
-  let add = useContext(MovieEditContext);
   const movieDetails = useContext(MovieContext);
-  const updateMovie = () => {
-    Movies.push(add);
-  };
 
   return (
     <>
@@ -101,7 +91,7 @@ function Header(props) {
         {modalContext === ModalState.ADD && (
           <AddEditModalContent
             updateMovie={() => {
-              updateMovie();
+              // updateMovie();
               setModalIsOpen(false);
             }}
             cancelUpdate={() => {

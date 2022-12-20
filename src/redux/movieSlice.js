@@ -8,7 +8,7 @@ const initialState = Object.freeze({
   limit: 100,
   pending: false,
   error: null,
-  editError: null,
+  editError: [],
   sortBy: 'release_date',
   current: {},
   search: '',
@@ -37,7 +37,7 @@ export const moviesSlice = createSlice({
     },
     fetchEditError: (state, { payload }) => {
       state.pending = false;
-      state.editError = payload;
+      state.editError = payload.editError;
     },
     fetchGetSuccess: (state, { payload }) => {
       state.pending = false;
@@ -56,11 +56,11 @@ export const moviesSlice = createSlice({
     },
     fetchCreateSuccess: (state, { payload }) => {
       state.value = [...state.value, payload];
-      state.editError = null;
+      state.editError = [];
     },
     fetchUpdateSuccess: (state, { payload }) => {
       state.pending = false;
-      state.editError = null;
+      state.editError = [];
       const cardsWithoutEdited = state.value.filter((card) => card.id !== payload.id);
       state.value = [...cardsWithoutEdited, payload];
     },

@@ -94,13 +94,16 @@ export const createMovie = (card) => async (dispatch) => {
 
     dispatch(fetchCreateSuccess(card));
   } catch (error) {
-    dispatch(fetchEditError(error));
+    dispatch(
+      fetchEditError({
+        editError: error.response.data.messages,
+      }),
+    );
   }
 };
 
 export const updateMovie = (card) => async (dispatch) => {
   dispatch(fetchUpdate());
-
   try {
     const movieArr = fromCardToMovie(card);
 
@@ -114,7 +117,11 @@ export const updateMovie = (card) => async (dispatch) => {
 
     dispatch(fetchUpdateSuccess(card));
   } catch (error) {
-    dispatch(fetchEditError(error));
+    dispatch(
+      fetchEditError({
+        editError: error.response.data.messages,
+      }),
+    );
   }
 };
 
@@ -124,11 +131,15 @@ const fromMovieArrToCardArr = (movies) =>
     title: movie.title,
     genre: movie.genres,
     src: movie.poster_path,
-    description: movie.overview,
-    runTime: movie.runtime,
+    overview: movie.overview,
+    runTime: movie.runtime ? movie.runtime : 0,
     rating: movie.vote_average,
-    releaseDate: movie.release_date,
-    year: movie.release_date,
+    releaseDate: movie.release_date.slice(0, 10),
+    year: movie.release_date.slice(0, 10),
+    budget: movie.budget,
+    revenue: movie.revenue,
+    tagline: movie.tagline ? movie.tagline : movie.title,
+    vote_count: movie.vote_count,
   }));
 
 const fromCardToMovie = (card) => ({
@@ -136,8 +147,12 @@ const fromCardToMovie = (card) => ({
   title: card.title,
   genres: card.genre,
   poster_path: card.src,
-  overview: card.description,
+  overview: card.overview,
   runtime: card.runTime,
   vote_average: card.rating,
   release_date: card.releaseDate,
+  budget: card.budget,
+  revenue: card.revenue,
+  tagline: card.tagline,
+  vote_count: card.vote_count,
 });

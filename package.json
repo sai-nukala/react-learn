@@ -79,7 +79,7 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
     "prettier": "^2.7.1",
-    "react-datepicker": "^4.8.0",
+    "react-date-picker": "8.0.1",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
     "react-select": "^5.6.0",

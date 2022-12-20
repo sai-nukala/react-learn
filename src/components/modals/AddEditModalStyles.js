@@ -34,27 +34,13 @@ const FieldLabel = styled.label`
   color: 'red';
 `;
 
-const Datepicker = styled.div`
-  box-sizing: border-box;
-  border-radius: 0;
-  background-color: darkgrey;
-  border: none;
-  outline: none;
-  height: 57px;
-  padding: 18px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 const StyledInput = styled.input`
   box-sizing: border-box;
   border-radius: 0;
   background-color: darkgrey;
   border: none;
   outline: none;
-  height: 57px;
+  height: 60px;
   padding-left: 18px;
   color: white;
 `;
@@ -76,7 +62,7 @@ const customStyles = {
     backgroundColor: 'darkgrey',
     border: 'none',
     borderRadius: 0,
-    height: '57px',
+    height: '100px',
     boxShadow: 'none',
     paddingLeft: '18px',
   }),
@@ -94,7 +80,6 @@ export {
   customStyles,
   StyledInput,
   StyledTextArea,
-  Datepicker,
   FieldLabel,
   BottomContainer,
   TopContainer,

@@ -13,7 +13,7 @@ import Movies from '../../shared/Movies-data.json';
 
 const MovieCard = (props) => {
   /**Destructuring the movie details of */
-  const { id, title, genre, year, description, runTime, rating, src } = props?.movie;
+  const { id, title, genre, year, overview, runTime, rating, src } = props?.movie;
   const [isContextMenuOpen, setOpenContextMenu] = useState(false);
   const [isMenuButtonVisible, setMenuButtonVisible] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -167,7 +167,7 @@ MovieCard.propTypes = {
     title: PropTypes.string,
     genre: PropTypes.array,
     year: PropTypes.string,
-    description: PropTypes.string,
+    overview: PropTypes.string,
     runTime: PropTypes.number,
     src: PropTypes.string,
     rating: PropTypes.number,

@@ -36,20 +36,12 @@ const MovieList = () => {
   let edit = useContext(MovieContext);
 
   const deleteMovie = () => {
-    dispatch(deleteMovieById(edit?.id));
-    if (!_storebasepath.movies.pending) {
-      dispatch(getMovies({ limit, sortBy, currentGenre }));
-    }
+    dispatch(getMovies({ limit, sortBy, currentGenre }));
   };
 
   //todo in task7
-  const updateMovie = () => {
-    const index = cards.findIndex((obj) => obj.id === edit?.id);
-
-    if (index > -1) {
-      cards.splice(index, 1, edit);
-      cards = [...cards];
-    }
+  const updateMovie = (values) => {
+    dispatch(getMovies({ limit, sortBy, currentGenre }));
   };
 
   /** filterBy Genre , search & sortBy */
