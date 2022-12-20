@@ -1,6 +1,7 @@
 #root {
   width: 1200px;
   background-color: #232323;
+  margin: auto;
 }
 
 .netfilx {
@@ -16,4 +17,16 @@
   justify-content: center;
   height: 70px;
   align-items: center;
+}
+
+p {
+  margin: 0px;
+}
+
+.react-date-picker 
+{
+  background: darkgray;
+}
+.react-date-picker__inputGroup__input{
+  color: white;
 }

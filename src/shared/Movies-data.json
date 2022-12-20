@@ -1,0 +1,68 @@
+[
+    {
+      "id": 0,
+      "title": "Bohemain Rapsody",
+      "genre": "Biopic",
+      "year": 2004,
+      "overview": " Pulp Fiction is an American crime thriller film.",
+      "runTime": 123,
+      "rating": 3.5,
+      "releaseDate": "2022-01-25",
+      "src": "https://images-na.ssl-images-amazon.com/images/I/41hnw9vKfFL._SX411_BO1,204,203,200_.jpg"
+    },
+    {
+      "id": 1,
+      "title": "Avengers",
+      "genre": "Action & Adventure",
+      "year": 2017,
+      "description": "Avengers is a fictional super Hero film",
+      "runTime": 154,
+      "rating": 4.5,
+      "releaseDate": "2019-03-25",
+      "src": "https://th.bing.com/th/id/OIP._6dP2n8MhINzZ9FFTgKTzwHaK-?w=198&h=294&c=7&r=0&o=5&pid=1.7"
+    },
+    {
+      "id": 2,
+      "title": "Bill: Vol 2",
+      "genre": "Oscar winning Movie",
+      "year": 1994,
+      "description": " Bill: Vol 2 is an American crime thriller film.",
+      "runTime": 98,
+      "rating": 4,
+      "releaseDate": "2089-03-25",
+      "src": "https://th.bing.com/th/id/OIP.h_9ADsw6Yy5IvBg--lmcegHaLH?w=198&h=297&c=7&r=0&o=5&pid=1.7"
+    },
+    {
+      "id": 3,
+      "title": "EndGame",
+      "genre": "Oscar winning Movie",
+      "year": 2020,
+      "description": " EndGame is an American Fictional film.",
+      "runTime": 102,
+      "rating": 4.4,
+      "releaseDate": "2019-03-25",
+      "src": "https://th.bing.com/th/id/OIP.1QKtdWS5t3PRAnvwO394awHaK5?w=125&h=184&c=7&r=0&o=5&pid=1.7"
+    },
+    {
+      "id": 4,
+      "title": "Ishq",
+      "genre": "Romance",
+      "year": 2010,
+      "description": " Ishq is an Indian Romantic film.",
+      "runTime": 142,
+      "rating": 4.1,
+      "releaseDate": "2019-03-25",
+      "src": "https://th.bing.com/th/id/OIP.yGL1XGKrOW3sqGioESfS4AHaOG?w=115&h=180&c=7&r=0&o=5&pid=1.7"
+    },
+    {
+      "id": 5,
+      "title": "VR",
+      "genre": "Thriller",
+      "year": 2022,
+      "description": " VR is an Indian Fictional film.",
+      "runTime": 182,
+      "rating": 2.5,
+      "releaseDate": "2000-03-25",
+      "src": "https://th.bing.com/th/id/OIP.AFYLCDSu68rqlfYAysqcsgHaKr?w=118&h=180&c=7&r=0&o=5&pid=1.7"
+    }
+  ]

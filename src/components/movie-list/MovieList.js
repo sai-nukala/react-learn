@@ -1,88 +1,102 @@
-import React from 'react';
-import { createUseStyles } from 'react-jss';
+import React, { useEffect, useState } from 'react';
 import MovieCard from '../movie-card/MovieCard';
+import { listStyles } from './MovieListStyles';
+import { useSelector, useDispatch } from 'react-redux';
+import { getMovies } from '../../services/dataplatform';
+import { store } from '../../redux/store';
+import CollapsibleExample from '../navbar/headernav';
+import {
+  updateSortBy,
+  updateCurrentGenre,
+  updateSearchInput,
+} from '../../redux/movieSlice';
+import ReactPaginate from 'react-paginate';
+import Header from '../header/Header';
 
-const cards = [
-  {
-    id: 1,
-    title: 'Pulp Fiction',
-    genre: 'Action & Adventure',
-    year: 2004,
-  },
-  {
-    id: 2,
-    title: 'Avengers',
-    genre: 'Action & Adventure',
-    year: 2017,
-  },
-  {
-    id: 3,
-    title: 'Bill: Vol 2',
-    genre: 'Oscar winning Movie',
-    year: 1994,
-  },
-  {
-    id: 4,
-    title: 'EndGame',
-    genre: 'Oscar winning Movie',
-    year: 2020,
-  },
-  {
-    id: 5,
-    title: 'Ishq',
-    genre: 'Romance',
-    year: 2010,
-  },
-  {
-    id: 6,
-    title: 'VR',
-    genre: 'Thriller',
-    year: 2022,
-  },
-];
-
-const listStyles = createUseStyles({
-  '.results': {
-    margin: '27px 0',
-    fontSize: '20px',
-    color: 'rgba(255, 255, 255, 0.7)',
-  },
-  '.span': {
-    fontWeight: '600',
-    marginLeft: '45px',
-  },
-  '.list': {
-    display: 'flex',
-    flexWrap: 'wrap',
-    columnGap: '15px',
-    rowGap: '50px',
-    justifyContent: 'space-evenly',
-    padding: 0,
-    listStyle: 'none',
-  },
-  '.li': {
-    width: '335px',
-  },
-  listcontainer: {
-    width: '1200px',
-    padding: '0 0 50px 0',
-  },
-});
+const _storebasepath = store.getState();
 const MovieList = () => {
   const styles = listStyles();
+
+  let {
+    value: cards,
+    limit,
+    sortBy,
+    currentGenre,
+    search,
+    recalculate,
+    editError,
+  } = useSelector((state) => state.movies);
+
+  const dispatch = useDispatch();
+
+  // *** updates the data ** //
+  useEffect(() => {
+    dispatch(getMovies({ limit, sortBy, currentGenre, search }));
+  }, [dispatch, limit, sortBy, currentGenre, search, recalculate]);
+
+  /** filterBy Genre , search & sortBy */
+  const sortByValue = (sortingKey) => {
+    dispatch(updateSortBy(sortingKey));
+  };
+
+  const fetchByGenre = (genreKey) => {
+    dispatch(updateCurrentGenre(genreKey));
+  };
+
+  const searchMovie = (searchInput) => {
+    dispatch(updateSearchInput(searchInput));
+  };
+
+  /** pagination logic  */
+  const itemsPerPage = _storebasepath.movies.pageOffset;
+  const [itemOffset, setItemOffset] = useState(0);
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = cards.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(cards.length / itemsPerPage);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % cards.length;
+    setItemOffset(newOffset);
+  };
+
   return (
     <>
+      <Header searchMovie={searchMovie} error={editError} />
+      <CollapsibleExample
+        sortByValue={sortByValue}
+        fetchByGenre={fetchByGenre}
+      ></CollapsibleExample>
       <div className={styles['.results']}>
         <span className={styles['.span']}>{cards.length}</span> movies found
       </div>
       <div className={styles.listcontainer}>
         <ul className={styles['.list']}>
-          {cards.map((card) => (
+          {currentItems.map((card) => (
             <li className={styles['.li']} key={card.id}>
-              <MovieCard value={card} />
+              <MovieCard movie={card} error={editError} />
             </li>
           ))}
         </ul>
+      </div>
+      <div className={styles.paginations}>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          breakLinkClassName={'page-link'}
+          containerClassName={'pagination'}
+          pageLinkClassName={'page-link'}
+          previousClassName={'page-item'}
+          previousLinkClassName={'page-link'}
+          nextClassName={'page-item'}
+          nextLinkClassName={'page-link'}
+          activeClassName={'active'}
+          renderOnZeroPageCount={null}
+        />
       </div>
     </>
   );

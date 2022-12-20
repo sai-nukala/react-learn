@@ -7,14 +7,15 @@
     "start": "webpack serve --config ./config/webpack.dev.config.js",
     "build": "webpack --config ./config/webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettify": "prettier src/**/*.js src/**/*.css src/**/*.scss --write",
+    "prettify": "prettier src/**/*.js src/**/*.jsx src/**/*.css src/**/*.scss --write",
     "prepare": "husky install",
     "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:react-hooks/recommended"
     ],
     "rules": {
       "no-console": 1,
@@ -24,7 +25,9 @@
         {
           "endOfLine": "auto"
         }
-      ]
+      ],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
     }
   },
   "prettier": {
@@ -44,11 +47,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^1.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "bootstrap": "^5.2.3",
+    "formik": "^2.2.9",
     "husky": "^8.0.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
-    "react-jss": "^10.9.2"
+    "react-jss": "^10.9.2",
+    "react-modal": "^3.16.1",
+    "react-modal-hook": "^3.0.2",
+    "react-paginate": "^8.1.4",
+    "react-redux": "^8.0.5",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
@@ -60,12 +73,16 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "file-loader": "^6.2.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
     "prettier": "^2.7.1",
+    "react-date-picker": "8.0.1",
+    "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
+    "react-select": "^5.6.0",
     "sass": "^1.56.0",
     "sass-loader": "^13.1.0",
     "style-loader": "^3.3.1",
